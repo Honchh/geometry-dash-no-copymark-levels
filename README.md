@@ -15,7 +15,7 @@ When levels are copied in-game or exported directly from save files, Geometry Da
 2. Open **Geometry Dash**.
 3. Go to your **Create** tab, click the **Import** button, and select the downloaded file.
 
-Note : If the "How to Use" isnt working, its probably outdated, Tutorials for newer versions will be on Youtube.
+Note : If the "How to Use" isnt working, its probably outdated, Tutorials for newer versions will be on Youtube and this Project is still Developing. Expect bugs/Unusable/corrupted files.
 
 ! Disclaimer !
 All levels belong to their respective original creators. Please do not re-upload these levels to the official Geometry Dash servers and claim them as your own work.
