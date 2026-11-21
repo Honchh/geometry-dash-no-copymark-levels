@@ -219,6 +219,16 @@
       border: 1px solid #30363d;
       font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, monospace;
     }
+
+    .version-tag {
+      position: fixed;
+      bottom: 12px;
+      left: 14px;
+      font-size: 0.75rem;
+      color: #6e7681;
+      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, monospace;
+      user-select: none;
+    }
   </style>
 </head>
 <body>
@@ -280,6 +290,8 @@
       <span>For GDShare - Geode</span>
     </footer>
   </div>
+
+  <div class="version-tag">v.0.1</div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
