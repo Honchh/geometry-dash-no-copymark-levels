@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>gd-clean-levels - Honchh</title>
-  <script src="https://jsdelivr.net"></script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{background:#111;color:#e5e5e5;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:14px;line-height:1.6;padding:40px 20px 60px}
@@ -20,10 +19,12 @@
     input,textarea{width:100%;background:#181818;border:1px solid #2e2e2e;color:#fff;padding:8px 10px;font-family:inherit;font-size:.9rem;border-radius:3px}
     input:focus,textarea:focus{outline:none;border-color:#60a5fa}
     textarea{min-height:80px;resize:vertical}
-    button{background:#fff;color:#111;border:none;padding:8px 16px;font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;border-radius:3px;margin-top:4px}
+    .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+    button{background:#fff;color:#111;border:none;padding:8px 14px;font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;border-radius:3px}
     button:hover{background:#d4d4d4}
-    button:disabled{opacity:.5;cursor:not-allowed}
-    #statusMsg{margin-top:12px;display:none}
+    button.sec{background:#222;color:#e5e5e5;border:1px solid #333}
+    button.sec:hover{background:#2e2e2e}
+    #statusMsg{margin-top:12px;color:#4ade80;display:none;font-size:.85rem}
     footer{margin-top:32px;padding-top:16px;border-top:1px solid #262626;color:#737373;font-size:.8rem}
     .version-tag{position:fixed;bottom:10px;left:12px;font-size:.75rem;color:#525252}
   </style>
@@ -42,25 +43,29 @@
     <form id="requestForm">
       <div class="field">
         <label for="level">Level name *</label>
-        <input type="text" id="level" name="level_name" placeholder="iSpyWithMyLittleEye" required />
+        <input type="text" id="level" placeholder="iSpyWithMyLittleEye" required />
       </div>
 
       <div class="field">
         <label for="id">Level ID (optional)</label>
-        <input type="text" id="id" name="level_id" placeholder="89886591" />
+        <input type="text" id="id" placeholder="89886591" />
       </div>
 
       <div class="field">
         <label for="creator">Creator (optional)</label>
-        <input type="text" id="creator" name="creator" placeholder="Voxicat" />
+        <input type="text" id="creator" placeholder="Voxicat" />
       </div>
 
       <div class="field">
         <label for="notes">Notes (optional)</label>
-        <textarea id="notes" name="notes" placeholder="Specific version, LDM, etc."></textarea>
+        <textarea id="notes" placeholder="Specific version, LDM, etc."></textarea>
       </div>
 
-      <button type="submit" id="submitBtn">Send request</button>
+      <div class="btns">
+        <button type="submit">Submit on GitHub Issues</button>
+        <button type="button" class="sec" id="gmailBtn">Send via Gmail</button>
+        <button type="button" class="sec" id="copyBtn">Copy for Email</button>
+      </div>
       <p id="statusMsg"></p>
     </form>
 
@@ -69,35 +74,45 @@
     </footer>
   </main>
 
-  <div class="version-tag">v.1.0</div>
+  <div class="version-tag">v.1.1</div>
 
   <script>
-    emailjs.init({ publicKey: '_95WRzX2hDP1zWayR' });
-
-    const form = document.getElementById('requestForm');
-    const btn = document.getElementById('submitBtn');
     const statusMsg = document.getElementById('statusMsg');
 
-    form.addEventListener('submit', async (e) => {
+    function getFields() {
+      const level = document.getElementById('level').value.trim();
+      if (!level) { document.getElementById('level').focus(); return null; }
+      return {
+        level,
+        id: document.getElementById('id').value.trim() || 'Not specified',
+        creator: document.getElementById('creator').value.trim() || 'Not specified',
+        notes: document.getElementById('notes').value.trim() || 'None'
+      };
+    }
+
+    document.getElementById('requestForm').addEventListener('submit', (e) => {
       e.preventDefault();
-      btn.disabled = true;
-      btn.textContent = 'Sending...';
-      statusMsg.style.display = 'none';
+      const d = getFields();
+      if (!d) return;
+      const title = encodeURIComponent(`[Level Request] ${d.level}`);
+      const body = encodeURIComponent(`### Level Request\n- **Level Name:** ${d.level}\n- **Level ID:** ${d.id}\n- **Creator:** ${d.creator}\n- **Notes:** ${d.notes}`);
+      window.open(`https://github.com/issues/new?title=${title}&body=${body}`, '_blank', 'noopener,noreferrer');
+    });
 
-      try {
-        await emailjs.sendForm('service_h0j0dgd', 'template_fy7upui', form);
-        form.reset();
-        statusMsg.style.color = '#4ade80';
-        statusMsg.textContent = 'Sent to help.honch@web.de.';
-        statusMsg.style.display = 'block';
-      } catch (err) {
-        statusMsg.style.color = '#f87171';
-        statusMsg.textContent = 'Error: ' + (err.text || err.message || JSON.stringify(err));
-        statusMsg.style.display = 'block';
-      }
+    document.getElementById('gmailBtn').addEventListener('click', () => {
+      const d = getFields();
+      if (!d) return;
+      const su = encodeURIComponent(`[GD Level Request] ${d.level}`);
+      const body = encodeURIComponent(`Level Name: ${d.level}\nLevel ID: ${d.id}\nCreator: ${d.creator}\nNotes: ${d.notes}`);
+      window.open(`https://google.com{su}&body=${body}`, '_blank', 'noopener,noreferrer');
+    });
 
-      btn.disabled = false;
-      btn.textContent = 'Send request';
+    document.getElementById('copyBtn').addEventListener('click', async () => {
+      const d = getFields();
+      if (!d) return;
+      await navigator.clipboard.writeText(`To: help.honch@web.de\nSubject: [GD Level Request] ${d.level}\n\nLevel Name: ${d.level}\nLevel ID: ${d.id}\nCreator: ${d.creator}\nNotes: ${d.notes}`);
+      statusMsg.textContent = 'Copied to clipboard (To: help.honch@web.de).';
+      statusMsg.style.display = 'block';
     });
   </script>
 </body>
