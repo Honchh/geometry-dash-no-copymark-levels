@@ -242,10 +242,11 @@
         <span class="status-badge"><span class="status-dot"></span> Open</span>
       </div>
 
-      <form id="requestForm">
+      <form id="requestForm" action="https://web3forms.com" method="POST">
         <input type="hidden" name="access_key" value="a41deabd-998d-4d7b-bd60-397faf1fd4a9" />
         <input type="hidden" name="subject" value="[GD Level Request] New Submission" />
         <input type="hidden" name="from_name" value="GD Clean Levels" />
+        <input type="hidden" name="redirect" value="https://github.io" />
 
         <div class="field">
           <label for="level">Level Name *</label>
@@ -281,48 +282,19 @@
   </div>
 
   <script>
-    const form = document.getElementById('requestForm');
-    const btn = document.getElementById('submitBtn');
-    const statusMsg = document.getElementById('statusMsg');
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('sent') === 'true') {
+      const statusMsg = document.getElementById('statusMsg');
+      statusMsg.style.color = '#3fb950';
+      statusMsg.textContent = '✓ Request sent! Thanks.';
+      statusMsg.style.display = 'block';
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    document.getElementById('requestForm').addEventListener('submit', () => {
+      const btn = document.getElementById('submitBtn');
       btn.disabled = true;
       btn.textContent = 'Sending...';
-      statusMsg.style.display = 'none';
-
-      const formData = new FormData(form);
-      const object = Object.fromEntries(formData);
-      const json = JSON.stringify(object);
-
-      try {
-        const res = await fetch('https://web3forms.com', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: json
-        });
-
-        const data = await res.json();
-
-        if (res.ok && data.success) {
-          form.reset();
-          statusMsg.style.color = '#3fb950';
-          statusMsg.textContent = '✓ Request sent! Thanks.';
-          statusMsg.style.display = 'block';
-        } else {
-          throw new Error(data.message || 'Submission failed');
-        }
-      } catch (err) {
-        statusMsg.style.color = '#f85149';
-        statusMsg.textContent = 'Error: ' + err.message;
-        statusMsg.style.display = 'block';
-      }
-
-      btn.disabled = false;
-      btn.textContent = 'Submit Request';
     });
   </script>
 </body>
