@@ -4,122 +4,80 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>gd-clean-levels - Honchh</title>
-  <script src="https://jsdelivr.net"></script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;line-height:1.5;padding:48px 20px}
-    .wrapper{max-width:640px;margin:0 auto}
-    header{border-bottom:1px solid #21262d;padding-bottom:22px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-    .title-area h1{font-size:1.35rem;font-weight:600;color:#f0f6fc;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-    .title-area p{font-size:.9rem;color:#8b949e;margin-top:4px}
-    .gh-btn{display:inline-flex;align-items:center;gap:8px;background:#21262d;color:#c9d1d9;border:1px solid #30363d;padding:8px 14px;border-radius:6px;font-size:.875rem;font-weight:500;text-decoration:none}
-    .gh-btn:hover{background:#30363d;border-color:#8b949e;color:#fff}
-    .box{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:26px;box-shadow:0 8px 24px rgba(1,4,9,.35)}
-    .box-header{font-size:1.05rem;font-weight:600;color:#f0f6fc;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #21262d;display:flex;align-items:center;justify-content:space-between}
-    .status-badge{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:500;color:#3fb950;background:rgba(63,185,80,.1);border:1px solid rgba(63,185,80,.25);padding:2px 10px;border-radius:999px}
-    .status-dot{height:7px;width:7px;background:#3fb950;border-radius:50%}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    @media(max-width:520px){.row{grid-template-columns:1fr;gap:0}}
-    .field{margin-bottom:16px}
-    label{display:block;font-size:.85rem;font-weight:600;color:#c9d1d9;margin-bottom:6px}
-    label span{color:#8b949e;font-weight:400}
-    input,textarea{width:100%;background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:9px 12px;color:#c9d1d9;font-size:.9rem;font-family:inherit}
-    input:focus,textarea:focus{outline:none;border-color:#58a6ff;box-shadow:0 0 0 3px rgba(88,166,255,.15)}
-    textarea{min-height:88px;resize:vertical}
-    .actions{display:flex;gap:10px;flex-wrap:wrap}
-    button[type="submit"]{background:#238636;color:#fff;border:1px solid rgba(240,246,252,.1);border-radius:6px;padding:9px 18px;font-size:.9rem;font-weight:600;cursor:pointer}
-    button[type="submit"]:hover{background:#2ea043}
-    button[type="submit"]:disabled{opacity:.6;cursor:not-allowed}
-    .secondary-btn{display:inline-flex;align-items:center;background:#21262d;color:#c9d1d9;border:1px solid #30363d;border-radius:6px;padding:9px 14px;font-size:.875rem;font-weight:500;text-decoration:none}
-    .secondary-btn:hover{background:#30363d;border-color:#8b949e;color:#fff}
-    #statusMsg{margin-top:14px;font-size:.85rem;display:none}
-    footer{margin-top:24px;font-size:.8rem;color:#8b949e;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-    footer code{background:#161b22;color:#c9d1d9;padding:3px 7px;border-radius:5px;border:1px solid #30363d;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-    .version-tag{position:fixed;bottom:12px;left:14px;font-size:.75rem;color:#6e7681;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    body{background:#111;color:#e5e5e5;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:14px;line-height:1.6;padding:40px 20px 60px}
+    main{max-width:580px;margin:0 auto}
+    h1{font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:4px}
+    .sub{color:#888;margin-bottom:20px}
+    nav{margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid #262626;display:flex;gap:16px;flex-wrap:wrap}
+    a{color:#60a5fa;text-decoration:none}
+    a:hover{text-decoration:underline}
+    h2{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:14px}
+    .field{margin-bottom:14px}
+    label{display:block;color:#a3a3a3;margin-bottom:4px;font-size:.85rem}
+    input,textarea{width:100%;background:#181818;border:1px solid #2e2e2e;color:#fff;padding:8px 10px;font-family:inherit;font-size:.9rem;border-radius:3px}
+    input:focus,textarea:focus{outline:none;border-color:#60a5fa}
+    textarea{min-height:80px;resize:vertical}
+    button{background:#fff;color:#111;border:none;padding:8px 16px;font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;border-radius:3px;margin-top:4px}
+    button:hover{background:#d4d4d4}
+    button:disabled{opacity:.5;cursor:not-allowed}
+    #statusMsg{margin-top:12px;color:#4ade80;display:none}
+    footer{margin-top:32px;padding-top:16px;border-top:1px solid #262626;color:#737373;font-size:.8rem}
+    .version-tag{position:fixed;bottom:10px;left:12px;font-size:.75rem;color:#525252}
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <header>
-      <div class="title-area">
-        <h1>Honchh - gd-clean-levels</h1>
-        <p>Sanitized .gmd files - no (C) mark, stripped metadata.</p>
+  <main>
+    <h1>Honchh - gd-clean-levels</h1>
+    <p class="sub">Sanitized .gmd files - no (C) mark, stripped metadata.</p>
+
+    <nav>
+      <a href="https://github.com/Honchh/geometry-dash-no-copymark-levels" target="_blank" rel="noopener noreferrer">[GitHub Repository]</a>
+      <a href="https://github.com/Honchh/geometry-dash-no-copymark-levels/issues" target="_blank" rel="noopener noreferrer">[Open Issues]</a>
+    </nav>
+
+    <h2>Request a level</h2>
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+    <form id="requestForm" action="https://emailjs.com" method="POST" enctype="multipart/form-data" target="hidden_iframe">
+      <input type="hidden" name="service_id" value="service_h0j0dgd" />
+      <input type="hidden" name="template_id" value="template_fy7upui" />
+      <input type="hidden" name="user_id" value="_95WRzX2hDP1zWayR" />
+
+      <div class="field">
+        <label for="level">Level name *</label>
+        <input type="text" id="level" name="level_name" placeholder="iSpyWithMyLittleEye" required />
       </div>
-      <a class="gh-btn" href="https://github.com" target="_blank" rel="noopener noreferrer">
-        <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-        View Repository
-      </a>
-    </header>
-    <div class="box">
-      <div class="box-header">
-        <span>Request a Level</span>
-        <span class="status-badge"><span class="status-dot"></span> Open</span>
+
+      <div class="field">
+        <label for="id">Level ID (optional)</label>
+        <input type="text" id="id" name="level_id" placeholder="89886591" />
       </div>
-      <form id="requestForm">
-        <div class="field">
-          <label for="level">Level Name *</label>
-          <input type="text" id="level" placeholder="iSpyWithMyLittleEye" required />
-        </div>
-        <div class="row">
-          <div class="field">
-            <label for="id">Level ID <span>(optional)</span></label>
-            <input type="text" id="id" placeholder="89886591" />
-          </div>
-          <div class="field">
-            <label for="creator">Creator <span>(optional)</span></label>
-            <input type="text" id="creator" placeholder="Voxicat" />
-          </div>
-        </div>
-        <div class="field">
-          <label for="notes">Notes <span>(optional)</span></label>
-          <textarea id="notes" placeholder="Specific version, LDM, etc."></textarea>
-        </div>
-        <div class="actions">
-          <button type="submit" id="submitBtn">Send Request via Email</button>
-          <a class="secondary-btn" href="https://github.com" target="_blank" rel="noopener noreferrer">Or via GitHub Issue</a>
-        </div>
-        <p id="statusMsg"></p>
-      </form>
-    </div>
+
+      <div class="field">
+        <label for="creator">Creator (optional)</label>
+        <input type="text" id="creator" name="creator" placeholder="Voxicat" />
+      </div>
+
+      <div class="field">
+        <label for="notes">Notes (optional)</label>
+        <textarea id="notes" name="notes" placeholder="Specific version, LDM, etc."></textarea>
+      </div>
+
+      <button type="submit" id="submitBtn">Send request</button>
+      <p id="statusMsg">Sent to help.honch@web.de.</p>
+    </form>
+
     <footer>
-      <span>Direct contact: <code>help.honch@web.de</code></span>
-      <span>For GDShare - Geode</span>
+      Contact: help.honch@web.de - For GDShare - Geode
     </footer>
-  </div>
-  <div class="version-tag">v.0.4</div>
+  </main>
+
+  <div class="version-tag">v.0.7</div>
+
   <script>
-    emailjs.init({ publicKey: '_95WRzX2hDP1zWayR' });
-
-    const form = document.getElementById('requestForm');
-    const btn = document.getElementById('submitBtn');
-    const statusMsg = document.getElementById('statusMsg');
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      btn.disabled = true;
-      btn.textContent = 'Sending...';
-      statusMsg.style.display = 'none';
-
-      emailjs.send('service_h0j0dgd', 'template_fy7upui', {
-        level_name: document.getElementById('level').value.trim(),
-        level_id: document.getElementById('id').value.trim() || 'Not specified',
-        creator: document.getElementById('creator').value.trim() || 'Not specified',
-        notes: document.getElementById('notes').value.trim() || 'None'
-      }).then(() => {
-        form.reset();
-        statusMsg.style.color = '#3fb950';
-        statusMsg.textContent = '✓ Request sent directly to help.honch@web.de!';
-        statusMsg.style.display = 'block';
-        btn.disabled = false;
-        btn.textContent = 'Send Request via Email';
-      }).catch((err) => {
-        statusMsg.style.color = '#f85149';
-        statusMsg.textContent = 'Error: ' + (err.text || JSON.stringify(err));
-        statusMsg.style.display = 'block';
-        btn.disabled = false;
-        btn.textContent = 'Send Request via Email';
-      });
-    });
+    const form=document.getElementById('requestForm'),btn=document.getElementById('submitBtn'),statusMsg=document.getElementById('statusMsg');
+    form.addEventListener('submit',()=>{btn.disabled=true;btn.textContent='Sending...';setTimeout(()=>{form.reset();statusMsg.style.display='block';btn.disabled=false;btn.textContent='Send request'},1200)});
   </script>
 </body>
 </html>
