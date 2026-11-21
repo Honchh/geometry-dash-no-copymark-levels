@@ -5,230 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>gd-clean-levels - Honchh</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: #0d1117;
-      color: #c9d1d9;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      line-height: 1.5;
-      padding: 48px 20px;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .wrapper {
-      max-width: 640px;
-      margin: 0 auto;
-    }
-
-    header {
-      border-bottom: 1px solid #21262d;
-      padding-bottom: 22px;
-      margin-bottom: 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .title-area h1 {
-      font-size: 1.35rem;
-      font-weight: 600;
-      color: #f0f6fc;
-      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, monospace;
-      letter-spacing: -0.02em;
-    }
-
-    .title-area p {
-      font-size: 0.9rem;
-      color: #8b949e;
-      margin-top: 4px;
-    }
-
-    .gh-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background-color: #21262d;
-      color: #c9d1d9;
-      border: 1px solid #30363d;
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-    }
-
-    .gh-btn:hover {
-      background-color: #30363d;
-      border-color: #8b949e;
-      color: #ffffff;
-    }
-
-    .box {
-      background-color: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 8px;
-      padding: 26px;
-      box-shadow: 0 8px 24px rgba(1, 4, 9, 0.35);
-    }
-
-    .box-header {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #f0f6fc;
-      margin-bottom: 20px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid #21262d;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: #3fb950;
-      background-color: rgba(63, 185, 80, 0.1);
-      border: 1px solid rgba(63, 185, 80, 0.25);
-      padding: 2px 10px;
-      border-radius: 999px;
-    }
-
-    .status-dot {
-      height: 7px;
-      width: 7px;
-      background-color: #3fb950;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    @media (max-width: 520px) {
-      .row {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-    }
-
-    .field {
-      margin-bottom: 16px;
-    }
-
-    label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #c9d1d9;
-      margin-bottom: 6px;
-    }
-
-    label span {
-      color: #8b949e;
-      font-weight: 400;
-    }
-
-    input, textarea {
-      width: 100%;
-      background-color: #0d1117;
-      border: 1px solid #30363d;
-      border-radius: 6px;
-      padding: 9px 12px;
-      color: #c9d1d9;
-      font-size: 0.9rem;
-      font-family: inherit;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    input::placeholder, textarea::placeholder {
-      color: #484f58;
-    }
-
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: #58a6ff;
-      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
-    }
-
-    textarea {
-      min-height: 88px;
-      resize: vertical;
-    }
-
-    button[type="submit"] {
-      background-color: #238636;
-      color: #ffffff;
-      border: 1px solid rgba(240, 246, 252, 0.1);
-      border-radius: 6px;
-      padding: 9px 18px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.15s ease, transform 0.1s ease;
-    }
-
-    button[type="submit"]:hover {
-      background-color: #2ea043;
-    }
-
-    button[type="submit"]:active {
-      transform: scale(0.99);
-    }
-
-    button[type="submit"]:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    #statusMsg {
-      margin-top: 14px;
-      font-size: 0.85rem;
-      display: none;
-    }
-
-    footer {
-      margin-top: 24px;
-      font-size: 0.8rem;
-      color: #8b949e;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    footer code {
-      background: #161b22;
-      color: #c9d1d9;
-      padding: 3px 7px;
-      border-radius: 5px;
-      border: 1px solid #30363d;
-      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, monospace;
-    }
-
-    .version-tag {
-      position: fixed;
-      bottom: 12px;
-      left: 14px;
-      font-size: 0.75rem;
-      color: #6e7681;
-      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, monospace;
-      user-select: none;
-    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;line-height:1.5;padding:48px 20px}
+    .wrapper{max-width:640px;margin:0 auto}
+    header{border-bottom:1px solid #21262d;padding-bottom:22px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+    .title-area h1{font-size:1.35rem;font-weight:600;color:#f0f6fc;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    .title-area p{font-size:.9rem;color:#8b949e;margin-top:4px}
+    .gh-btn{display:inline-flex;align-items:center;gap:8px;background:#21262d;color:#c9d1d9;border:1px solid #30363d;padding:8px 14px;border-radius:6px;font-size:.875rem;font-weight:500;text-decoration:none}
+    .gh-btn:hover{background:#30363d;border-color:#8b949e;color:#fff}
+    .box{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:26px;box-shadow:0 8px 24px rgba(1,4,9,.35)}
+    .box-header{font-size:1.05rem;font-weight:600;color:#f0f6fc;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #21262d;display:flex;align-items:center;justify-content:space-between}
+    .status-badge{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:500;color:#3fb950;background:rgba(63,185,80,.1);border:1px solid rgba(63,185,80,.25);padding:2px 10px;border-radius:999px}
+    .status-dot{height:7px;width:7px;background:#3fb950;border-radius:50%}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media(max-width:520px){.row{grid-template-columns:1fr;gap:0}}
+    .field{margin-bottom:16px}
+    label{display:block;font-size:.85rem;font-weight:600;color:#c9d1d9;margin-bottom:6px}
+    label span{color:#8b949e;font-weight:400}
+    input,textarea{width:100%;background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:9px 12px;color:#c9d1d9;font-size:.9rem;font-family:inherit}
+    input:focus,textarea:focus{outline:none;border-color:#58a6ff;box-shadow:0 0 0 3px rgba(88,166,255,.15)}
+    textarea{min-height:88px;resize:vertical}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    button[type="submit"]{background:#238636;color:#fff;border:1px solid rgba(240,246,252,.1);border-radius:6px;padding:9px 18px;font-size:.9rem;font-weight:600;cursor:pointer}
+    button[type="submit"]:hover{background:#2ea043}
+    button[type="submit"]:disabled{opacity:.6;cursor:not-allowed}
+    .secondary-btn{background:#21262d;color:#c9d1d9;border:1px solid #30363d;border-radius:6px;padding:9px 14px;font-size:.875rem;font-weight:500;cursor:pointer}
+    .secondary-btn:hover{background:#30363d;border-color:#8b949e}
+    #statusMsg{margin-top:14px;font-size:.85rem;display:none}
+    footer{margin-top:24px;font-size:.8rem;color:#8b949e;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+    footer code{background:#161b22;color:#c9d1d9;padding:3px 7px;border-radius:5px;border:1px solid #30363d;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    .version-tag{position:fixed;bottom:12px;left:14px;font-size:.75rem;color:#6e7681;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
   </style>
 </head>
 <body>
@@ -239,74 +45,113 @@
         <p>Sanitized .gmd files - no (C) mark, stripped metadata.</p>
       </div>
       <a class="gh-btn" href="https://github.com" target="_blank" rel="noopener noreferrer">
-        <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
-          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-        </svg>
+        <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         View Repository
       </a>
     </header>
-
     <div class="box">
       <div class="box-header">
         <span>Request a Level</span>
         <span class="status-badge"><span class="status-dot"></span> Open</span>
       </div>
-
-      <form id="requestForm" action="https://web3forms.com" method="POST">
-        <input type="hidden" name="access_key" value="a41deabd-998d-4d7b-bd60-397faf1fd4a9" />
-        <input type="hidden" name="subject" value="[GD Level Request] New Submission" />
-        <input type="hidden" name="from_name" value="GD Clean Levels" />
-        <input type="hidden" name="redirect" value="https://github.io" />
-
+      <form id="requestForm">
         <div class="field">
           <label for="level">Level Name *</label>
-          <input type="text" id="level" name="Level Name" placeholder="iSpyWithMyLittleEye" required />
+          <input type="text" id="level" placeholder="iSpyWithMyLittleEye" required />
         </div>
-
         <div class="row">
           <div class="field">
             <label for="id">Level ID <span>(optional)</span></label>
-            <input type="text" id="id" name="Level ID" placeholder="89886591" />
+            <input type="text" id="id" placeholder="89886591" />
           </div>
-
           <div class="field">
             <label for="creator">Creator <span>(optional)</span></label>
-            <input type="text" id="creator" name="Creator" placeholder="Voxicat" />
+            <input type="text" id="creator" placeholder="Voxicat" />
           </div>
         </div>
-
         <div class="field">
           <label for="notes">Notes <span>(optional)</span></label>
-          <textarea id="notes" name="Notes" placeholder="Specific version, LDM, etc."></textarea>
+          <textarea id="notes" placeholder="Specific version, LDM, etc."></textarea>
         </div>
-
-        <button type="submit" id="submitBtn">Submit Request</button>
+        <div class="actions">
+          <button type="submit" id="submitBtn">Send Request via Email</button>
+          <button type="button" class="secondary-btn" id="ghIssueBtn">Or via GitHub Issue</button>
+        </div>
         <p id="statusMsg"></p>
       </form>
     </div>
-
     <footer>
       <span>Direct contact: <code>help.honch@web.de</code></span>
       <span>For GDShare - Geode</span>
     </footer>
   </div>
-
-  <div class="version-tag">v.0.1</div>
-
+  <div class="version-tag">v.0.3</div>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('sent') === 'true') {
-      const statusMsg = document.getElementById('statusMsg');
-      statusMsg.style.color = '#3fb950';
-      statusMsg.textContent = '✓ Request sent! Thanks.';
-      statusMsg.style.display = 'block';
-      window.history.replaceState({}, document.title, window.location.pathname);
+    const EMAILJS_SERVICE_ID = 'service_h0j0dgd';
+    const EMAILJS_TEMPLATE_ID = 'template_fy7upui';
+    const EMAILJS_PUBLIC_KEY = '_95WRzX2hDP1zWayR';
+
+    const form = document.getElementById('requestForm');
+    const btn = document.getElementById('submitBtn');
+    const statusMsg = document.getElementById('statusMsg');
+
+    function getData() {
+      return {
+        level: document.getElementById('level').value.trim(),
+        id: document.getElementById('id').value.trim() || 'Not specified',
+        creator: document.getElementById('creator').value.trim() || 'Not specified',
+        notes: document.getElementById('notes').value.trim() || 'None'
+      };
     }
 
-    document.getElementById('requestForm').addEventListener('submit', () => {
-      const btn = document.getElementById('submitBtn');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const d = getData();
       btn.disabled = true;
       btn.textContent = 'Sending...';
+      statusMsg.style.display = 'none';
+
+      try {
+        const res = await fetch('https://emailjs.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            service_id: EMAILJS_SERVICE_ID,
+            template_id: EMAILJS_TEMPLATE_ID,
+            user_id: EMAILJS_PUBLIC_KEY,
+            template_params: {
+              level_name: d.level,
+              level_id: d.id,
+              creator: d.creator,
+              notes: d.notes
+            }
+          })
+        });
+
+        if (res.ok) {
+          form.reset();
+          statusMsg.style.color = '#3fb950';
+          statusMsg.textContent = '✓ Request sent directly to help.honch@web.de!';
+          statusMsg.style.display = 'block';
+        } else {
+          throw new Error(await res.text());
+        }
+      } catch (err) {
+        statusMsg.style.color = '#f85149';
+        statusMsg.textContent = 'Error: ' + err.message;
+        statusMsg.style.display = 'block';
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Send Request via Email';
+    });
+
+    document.getElementById('ghIssueBtn').addEventListener('click', () => {
+      const d = getData();
+      if (!d.level) { document.getElementById('level').focus(); return; }
+      const title = encodeURIComponent(`[Level Request] ${d.level}`);
+      const body = encodeURIComponent(`### Level Request\n- **Level Name:** ${d.level}\n- **Level ID:** ${d.id}\n- **Creator:** ${d.creator}\n- **Notes:** ${d.notes}`);
+      window.open(`https://github.com{title}&body=${body}`, '_blank', 'noopener,noreferrer');
     });
   </script>
 </body>
