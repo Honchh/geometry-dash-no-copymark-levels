@@ -148,6 +148,11 @@
       background-color: #2ea043;
     }
 
+    button[type="submit"]:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     footer {
       margin-top: 24px;
       font-size: 0.8rem;
@@ -187,11 +192,10 @@
         Request a Level
       </div>
 
-      <!-- Sends directly to help.honch@web.de without needing a mail app -->
-      <form action="https://formsubmit.co" method="POST">
-        <input type="hidden" name="_subject" value="[GD Level Request] New submission" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_template" value="table" />
+      <form id="requestForm" action="https://web3forms.com" method="POST">
+        <input type="hidden" name="access_key" value="a41deabd-998d-4d7b-bd60-397faf1fd4a9" />
+        <input type="hidden" name="subject" value="[GD Level Request] New Submission" />
+        <input type="hidden" name="from_name" value="GD Clean Levels" />
 
         <div class="field">
           <label for="level">Level Name *</label>
@@ -213,7 +217,10 @@
           <textarea id="notes" name="Notes" placeholder="Specific version, LDM, etc."></textarea>
         </div>
 
-        <button type="submit">Submit Request</button>
+        <button type="submit" id="submitBtn">Submit Request</button>
+        <p id="statusMsg" style="margin-top:12px; font-size:0.85rem; color:#3fb950; display:none;">
+          ✓ Request sent! Thanks.
+        </p>
       </form>
     </div>
 
@@ -222,5 +229,42 @@
       <span>For GDShare / Geode</span>
     </footer>
   </div>
+
+  <script>
+    const form = document.getElementById('requestForm');
+    const btn = document.getElementById('submitBtn');
+    const statusMsg = document.getElementById('statusMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      statusMsg.style.display = 'none';
+
+      try {
+        const formData = new FormData(form);
+        const res = await fetch('https://web3forms.com', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (res.ok) {
+          form.reset();
+          statusMsg.style.color = '#3fb950';
+          statusMsg.textContent = '✓ Request sent! Thanks.';
+          statusMsg.style.display = 'block';
+        } else {
+          throw new Error('Failed');
+        }
+      } catch (err) {
+        statusMsg.style.color = '#f85149';
+        statusMsg.textContent = 'Error sending request. Try again later.';
+        statusMsg.style.display = 'block';
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Submit Request';
+    });
+  </script>
 </body>
 </html>
