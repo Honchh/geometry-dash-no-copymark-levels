@@ -63,7 +63,6 @@
 
       <div class="btns">
         <button type="submit">Submit on GitHub Issues</button>
-        <button type="button" class="sec" id="gmailBtn">Send via Gmail</button>
         <button type="button" class="sec" id="copyBtn">Copy for Email</button>
       </div>
       <p id="statusMsg"></p>
@@ -74,7 +73,7 @@
     </footer>
   </main>
 
-  <div class="version-tag">v.1.1</div>
+  <div class="version-tag">v.1.2</div>
 
   <script>
     const statusMsg = document.getElementById('statusMsg');
@@ -99,19 +98,12 @@
       window.open(`https://github.com/issues/new?title=${title}&body=${body}`, '_blank', 'noopener,noreferrer');
     });
 
-    document.getElementById('gmailBtn').addEventListener('click', () => {
-      const d = getFields();
-      if (!d) return;
-      const su = encodeURIComponent(`[GD Level Request] ${d.level}`);
-      const body = encodeURIComponent(`Level Name: ${d.level}\nLevel ID: ${d.id}\nCreator: ${d.creator}\nNotes: ${d.notes}`);
-      window.open(`https://google.com{su}&body=${body}`, '_blank', 'noopener,noreferrer');
-    });
-
     document.getElementById('copyBtn').addEventListener('click', async () => {
       const d = getFields();
       if (!d) return;
-      await navigator.clipboard.writeText(`To: help.honch@web.de\nSubject: [GD Level Request] ${d.level}\n\nLevel Name: ${d.level}\nLevel ID: ${d.id}\nCreator: ${d.creator}\nNotes: ${d.notes}`);
-      statusMsg.textContent = 'Copied to clipboard (To: help.honch@web.de).';
+      const message = `Hey Honch,\n\nI'd like to request a cleaned .gmd for:\nLevel Name: ${d.level}\nLevel ID: ${d.id}\nCreator: ${d.creator}\nNotes: ${d.notes}`;
+      await navigator.clipboard.writeText(message);
+      statusMsg.textContent = 'Message copied! Paste it in an email to help.honch@web.de.';
       statusMsg.style.display = 'block';
     });
   </script>
