@@ -22,6 +22,7 @@ All levels belong to their respective original creators. Please do not re-upload
 
 > [!IMPORTANT]
 > The project *_WILL BE EMPTY_* for a few days/weeks, Getting theese levels metadata cleared is not that easy!!!
+> Also check out the Submit Website to submit levels (Levels can also be submitted through Githubs "Issues" tab.
 
 > [!WARNING]
 > *Use at your own risk.* I am not responsible for any account bans or data loss in Geometry Dash caused by using this project.
