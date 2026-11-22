@@ -20,5 +20,8 @@ Note : If the "How to Use" isnt working, its probably outdated, Tutorials for ne
 ! Disclaimer !
 All levels belong to their respective original creators. Please do not re-upload these levels to the official Geometry Dash servers and claim them as your own work.
 
+> [!IMPORTANT]
+> The project *_WILL BE EMPTY_* for a few days/weeks, Getting theese levels metadata cleared is not that easy!!!
+
 > [!WARNING]
 > *Use at your own risk.* I am not responsible for any account bans or data loss in Geometry Dash caused by using this project.
